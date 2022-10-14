@@ -50,14 +50,18 @@
 # def foo(x):
 #     return tuple(x)
 # print(foo(l))
+
 #zadanie 8
+
 #lista=[]
 #for x in range(10):
 #    a=input("element listy")
 #    lista.append(a)
 #krotka=tuple(y for y in lista)
 #print(krotka)
+
 #zadanie 9.
+
 #def foo(x):
 #    return{
 #        1:'Poniedziałek',
@@ -69,7 +73,9 @@
 #        7:'Niedziela',
 #    }.get(x,'dzien tygodnia')
 #print(foo(5))
+
 #zadanie 10.
+
 #def Palindrom(napis):
 #    for x in range(int(len(napis)/2)):
 #        if(napis[x]!=napis[(len(napis)-1)-x]):
