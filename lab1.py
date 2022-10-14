@@ -50,16 +50,33 @@
 # def foo(x):
 #     return tuple(x)
 # print(foo(l))
-
 #zadanie 8
-lista = []
-for i in range(0,1000):
-    x = input("element listy")
-    if x !=0:
-        lista.append(x)
-        continue
-    break
-
+#lista=[]
+#for x in range(10):
+#    a=input("element listy")
+#    lista.append(a)
+#krotka=tuple(y for y in lista)
+#print(type(krotka))
+#print(krotka)
+#zadanie 9.
+#def f(x):
+#    return{
+#        1:'Poniedziałek',
+#        2:'Wtorek',
+#        3:'Środa',
+#        4:'Czwartek',
+#        5:'Piątek',
+#        6:'Sobota',
+#        7:'Niedziela',
+#    }.get(x,'dzien tygodnia')
+#print(f(7))
+#zadanie 10.
+#def czyPalindrom(napis):
+#    for x in range(int(len(napis)/2)):
+#        if(napis[x]!=napis[(len(napis)-1)-x]):
+#            return False
+#    return True
+#print(czyPalindrom('ala'))
 
 
 
