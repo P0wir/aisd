@@ -88,17 +88,81 @@ class LinkedList:
         return length
 
 
+class Stack:
+    def __init__(self):
+            self.przechowaj=LinkedList()
+
+    def push(self, element: Any):
+        self.przechowaj.push(element)
+
+    def pop(self) -> Any:
+        self.przechowaj.pop()
+
+    def print(self):
+        temp = self.przechowaj.head
+        while(temp):
+            if temp.next is None:
+                print(temp.data)
+            else:
+                print(temp.data)
+            temp = temp.next
+
+    def len(self):
+        length = 0
+        temp = self.przechowaj.head
+        while (temp):
+                length+=1
+                temp = temp.next
+        return length
+
+stos = Stack()
+stos.push(1)
+stos.push(2)
+stos.push(3)
+stos.print()
+print("--------------")
+stos.pop()
+stos.print()
+print("--------------")
+print(stos.len())
+print("--------------")
 
 
+class Queue:
+    _storage: LinkedList
 
-lista=LinkedList()
-lista.push(3)
-lista.push(5)
-lista.push('x')
-lista.insert(2,lista.head)
-lista.append(10)
-lista.print()
-lista.pop()
-lista.remove_last()
-lista.remove(lista.head)
-lista.print()
+    def __init__(self):
+        self.storage = LinkedList()
+
+    def peek(self):
+        return self.storage.head.data
+
+    def enqueue(self, element: Any) -> None:
+        self.storage.append(element)
+
+    def dequeue(self) -> Any:
+        self.storage.pop()
+
+    def print(self):
+        temp = self.storage.head
+        while (temp):
+            print(temp.data)
+            temp = temp.next
+
+    def len(self):
+        length = 0
+        temp = self.storage.head
+        while (temp):
+            length += 1
+            temp = temp.next
+        return length
+
+queue = Queue()
+queue.enqueue("1")
+queue.enqueue("2")
+queue.enqueue("3")
+print(queue.peek())
+queue.print()
+print(queue.len())
+queue.dequeue()
+print(queue.len())
