@@ -62,3 +62,15 @@ def prime(n: int, i=2) -> bool:
     return prime(n,i+1)
 
 print(prime(10))
+
+#zad 7
+def n_sums(liczby: int, lista=[]):
+    if liczby > 1000:
+        return lista
+    temp = [int(x) for x in str(liczby)]
+    print(temp)
+    if sum(temp[::2]) == sum(temp[1::2]):
+        lista.append(liczby)
+    return n_sums(liczby + 1, lista)
+print(n_sums(5))
+
