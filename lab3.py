@@ -74,3 +74,14 @@ def n_sums(liczby: int, lista=[]):
     return n_sums(liczby + 1, lista)
 print(n_sums(5))
 
+#zad 9
+
+def remove_duplicates(txt: str) -> str:
+    if len(txt) == 1:
+        return txt[0]
+    elif txt[0] != txt[1]:
+        return txt[0] + remove_duplicates(txt[1:])
+    else:
+        return remove_duplicates(txt[1:])
+
+print(remove_duplicates("sieema"))
