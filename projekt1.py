@@ -60,7 +60,6 @@ class TreeNode:
         return "Taki element nie znajduje sie w drzewie"
 
 
-
 f = print
 def print(address:'TreeNode')->None:
     if isinstance(address, TreeNode):
@@ -124,5 +123,5 @@ root.for_each_level_order(print)
 
 tree=Tree(root)
 print("..............")
-print(root.search("F"))
+print(root.search("H"))
 root.show(dot).render(directory='doctest-output')
