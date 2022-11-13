@@ -50,16 +50,14 @@ class TreeNode:
         queue.dequeue()
         queue.enqueue(self)
         y = queue.peek()
-        if(y.value==value):
-            return "Podany Argument istnieje"
         while queue.len() != 0:
             y = queue.peek()
             if(y.value == value):
-                return "Podany Arguement istnieje"
+                return "element znajduje sie w drzewie"
             queue.dequeue()
             for x in range(len(y.children)):
                 queue.enqueue(y.children[x])
-        return "Taki argument nie istnieje"
+        return "Taki element nie znajduje sie w drzewie"
 
 
 
@@ -126,5 +124,5 @@ root.for_each_level_order(print)
 
 tree=Tree(root)
 print("..............")
-print(root.search("Z"))
+print(root.search("F"))
 root.show(dot).render(directory='doctest-output')
