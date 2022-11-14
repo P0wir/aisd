@@ -1,8 +1,9 @@
 from typing import Any, List, Callable, Union
 from metody_pomoc import Queue
 import graphviz
-
 dot = graphviz.Digraph('TreeNode')
+
+
 class TreeNode:
     value: Any
     children: List['TreeNode']
@@ -20,15 +21,13 @@ class TreeNode:
     def add(self, node):
         self.children.append(node)
 
-    def for_each_deep_first(self, visit:Callable[['TreeNode'], None]) -> None:
+    def for_each_deep_first(self, visit: Callable[['TreeNode'], None]) -> None:
         visit(self)
         for x in self.children:
             x.for_each_deep_first(visit)
 
-
     def for_each_level_order(self, visit: Callable[['TreeNode'], None]) -> None:
         queue = Queue()
-        queue.dequeue()
         queue.enqueue(self)
         while queue.len() != 0:
             y = queue.peek()
@@ -45,44 +44,45 @@ class TreeNode:
             x.show(dot)
         return dot
 
-    def search(self, value:Any)-> Union['TreeNode', None]:
+    def search(self, value: Any) -> Union['TreeNode', None]:
         queue = Queue()
-        queue.dequeue()
         queue.enqueue(self)
-        y = queue.peek()
         while queue.len() != 0:
             y = queue.peek()
-            if(y.value == value):
+            if (y.value == value):
                 return "element znajduje sie w drzewie"
             queue.dequeue()
             for x in range(len(y.children)):
                 queue.enqueue(y.children[x])
         return "Taki element nie znajduje sie w drzewie"
 
-p=print
-def print(address:'TreeNode')-> None:
+
+p = print
+
+
+def print(address: 'TreeNode') -> None:
     if isinstance(address, TreeNode):
         p(address.value)
     else:
         p(address)
 
+
 class Tree:
     root: TreeNode
 
     def __init__(self, TreeNode):
-        self.root:'TreeNode' = TreeNode
+        self.root: 'TreeNode' = TreeNode
 
     def add(self, value: Any, parent_name: Any) -> None:
         parent_name.children.append(TreeNode(value))
 
-    def for_each_deep_first(self, visit:Callable[['TreeNode'], None]) -> None:
+    def for_each_deep_first(self, visit: Callable[['TreeNode'], None]) -> None:
         visit(self.root)
         for x in self.root.children:
             x.for_each_deep_first(visit)
 
     def for_each_level_order(self, visit: Callable[['TreeNode'], None]) -> None:
         queue = Queue()
-        queue.dequeue()
         queue.enqueue(self.root)
         while queue.len() > 0:
             y = queue.peek()
@@ -90,9 +90,6 @@ class Tree:
             visit(y)
             for x in range(len(y.children)):
                 queue.enqueue(y.children[x])
-
-
-
 
 
 root = TreeNode("F")
@@ -104,7 +101,6 @@ leaf5 = TreeNode("I")
 leaf6 = TreeNode("C")
 leaf7 = TreeNode("E")
 leaf8 = TreeNode("H")
-
 
 TreeNode.add(root, leaf)
 TreeNode.add(root, leaf2)
@@ -120,11 +116,11 @@ root.for_each_deep_first(print)
 print("..........")
 root.for_each_level_order(print)
 
-tree=Tree(root)
+tree = Tree(root)
 print("..............")
 tree.for_each_deep_first(print)
 print(".............")
 tree.for_each_level_order(print)
-print(root.search("H"))
+print(root.search("C"))
 root.show(dot).render(directory='doctest-output')
 #
