@@ -1,9 +1,8 @@
 from typing import Any, List, Callable, Union
-from lab import Queue
+from metody_pomoc import Queue
 import graphviz
 
 dot = graphviz.Digraph('TreeNode')
-
 class TreeNode:
     value: Any
     children: List['TreeNode']
@@ -38,6 +37,7 @@ class TreeNode:
             for x in range(len(y.children)):
                 queue.enqueue(y.children[x])
 
+
     def show(self, dot):
         dot.node(str(self.value))
         for x in self.children:
@@ -59,13 +59,12 @@ class TreeNode:
                 queue.enqueue(y.children[x])
         return "Taki element nie znajduje sie w drzewie"
 
-
-f = print
-def print(address:'TreeNode')->None:
+p=print
+def print(address:'TreeNode')-> None:
     if isinstance(address, TreeNode):
-        f(address.value)
+        p(address.value)
     else:
-        f(address)
+        p(address)
 
 class Tree:
     root: TreeNode
@@ -77,14 +76,14 @@ class Tree:
         parent_name.children.append(TreeNode(value))
 
     def for_each_deep_first(self, visit:Callable[['TreeNode'], None]) -> None:
-        visit(self)
+        visit(self.root)
         for x in self.root.children:
             x.for_each_deep_first(visit)
 
     def for_each_level_order(self, visit: Callable[['TreeNode'], None]) -> None:
         queue = Queue()
         queue.dequeue()
-        queue.enqueue(self)
+        queue.enqueue(self.root)
         while queue.len() > 0:
             y = queue.peek()
             queue.dequeue()
@@ -123,6 +122,8 @@ root.for_each_level_order(print)
 
 tree=Tree(root)
 print("..............")
+tree.for_each_deep_first(print)
+print(".............")
+tree.for_each_deep_first(print)
 print(root.search("H"))
 root.show(dot).render(directory='doctest-output')
-#
