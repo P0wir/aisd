@@ -124,6 +124,7 @@ tree=Tree(root)
 print("..............")
 tree.for_each_deep_first(print)
 print(".............")
-tree.for_each_deep_first(print)
+tree.for_each_level_order(print)
 print(root.search("H"))
 root.show(dot).render(directory='doctest-output')
+#
