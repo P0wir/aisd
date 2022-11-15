@@ -1,7 +1,7 @@
-from typing import Any, List, Callable, Union
+from typing import *
 from metody_pomoc import Queue
 import graphviz
-dot = graphviz.Digraph('TreeNode')
+g = graphviz.Digraph('TreeNode')
 
 
 class TreeNode:
@@ -18,8 +18,8 @@ class TreeNode:
         elif len(self.children) == 0:
             return True
 
-    def add(self, node):
-        self.children.append(node)
+    def add(self, child: 'TreeNode') -> None:
+        self.children.append(child)
 
     def for_each_deep_first(self, visit: Callable[['TreeNode'], None]) -> None:
         visit(self)
@@ -37,12 +37,12 @@ class TreeNode:
                 queue.enqueue(y.children[x])
 
 
-    def show(self, dot):
-        dot.node(str(self.value))
+    def show(self, g):
+        g.node(self.value)
         for x in self.children:
-            dot.edge(str(self.value), str(x.value))
-            x.show(dot)
-        return dot
+            g.edge(self.value, x.value)
+            x.show(g)
+        return g
 
     def search(self, value: Any) -> Union['TreeNode', None]:
         queue = Queue()
@@ -50,11 +50,11 @@ class TreeNode:
         while queue.len() != 0:
             y = queue.peek()
             if (y.value == value):
-                return "element znajduje sie w drzewie"
+                return "Istnieje"
             queue.dequeue()
             for x in range(len(y.children)):
                 queue.enqueue(y.children[x])
-        return "Taki element nie znajduje sie w drzewie"
+        return "nie istnieje"
 
 
 p = print
@@ -70,8 +70,8 @@ def print(address: 'TreeNode') -> None:
 class Tree:
     root: TreeNode
 
-    def __init__(self, TreeNode):
-        self.root: 'TreeNode' = TreeNode
+    def __init__(self, root: 'TreeNode'):
+        self.root: 'TreeNode' = root
 
     def add(self, value: Any, parent_name: Any) -> None:
         parent_name.children.append(TreeNode(value))
@@ -121,6 +121,6 @@ print("..............")
 tree.for_each_deep_first(print)
 print(".............")
 tree.for_each_level_order(print)
-print(root.search("C"))
-root.show(dot).render(directory='doctest-output')
-#
+print(root.search("Z"))
+root.show(g).render(directory='doctest-output', view=True)
+print(leaf4)
