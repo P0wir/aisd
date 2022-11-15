@@ -1,6 +1,9 @@
+import builtins
 from typing import *
 from metody_pomoc import Queue
 import graphviz
+import ctypes
+
 g = graphviz.Digraph('TreeNode')
 
 
@@ -36,11 +39,10 @@ class TreeNode:
             for x in range(len(y.children)):
                 queue.enqueue(y.children[x])
 
-
     def show(self, g):
-        g.node(self.value)
+        g.node(str(self.value))
         for x in self.children:
-            g.edge(self.value, x.value)
+            g.edge(str(self.value), str(x.value))
             x.show(g)
         return g
 
@@ -50,21 +52,18 @@ class TreeNode:
         while queue.len() != 0:
             y = queue.peek()
             if (y.value == value):
-                return "Istnieje"
+                return y
             queue.dequeue()
             for x in range(len(y.children)):
                 queue.enqueue(y.children[x])
-        return "nie istnieje"
+        return None
 
 
-p = print
-
-
-def print(address: 'TreeNode') -> None:
+def print(address: Any) -> None:
     if isinstance(address, TreeNode):
-        p(address.value)
+        builtins.print(address.value)
     else:
-        p(address)
+        builtins.print(address)
 
 
 class Tree:
@@ -121,6 +120,5 @@ print("..............")
 tree.for_each_deep_first(print)
 print(".............")
 tree.for_each_level_order(print)
-print(root.search("Z"))
+print(root.search("F"))
 root.show(g).render(directory='doctest-output', view=True)
-print(leaf4)
