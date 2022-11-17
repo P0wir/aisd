@@ -2,7 +2,6 @@ import builtins
 from typing import *
 from metody_pomoc import Queue
 import graphviz
-import ctypes
 
 g = graphviz.Digraph('TreeNode')
 
@@ -51,7 +50,7 @@ class TreeNode:
         queue.enqueue(self)
         while queue.len() != 0:
             y = queue.peek()
-            if (y.value == value):
+            if y.value == value:
                 return y
             queue.dequeue()
             for x in range(len(y.children)):
@@ -64,6 +63,7 @@ def print(address: Any) -> None:
         builtins.print(address.value)
     else:
         builtins.print(address)
+
 
 
 class Tree:
@@ -120,5 +120,6 @@ print("..............")
 tree.for_each_deep_first(print)
 print(".............")
 tree.for_each_level_order(print)
+print(".............")
 print(root.search("F"))
 root.show(g).render(directory='doctest-output', view=True)
