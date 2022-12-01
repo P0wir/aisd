@@ -12,12 +12,14 @@ class BinaryNode:
         self.right_child = None
 
     def add_left_child(self, value: Any) -> None:
-        if self.left_child is None:
-            self.left_child = BinaryNode(value)
+        if self.left_child:
+            return
+        self.left_child = BinaryNode(value)
 
     def add_right_child(self, value: Any) -> None:
-        if BinaryNode.left_child is None:
-            self.right_child = BinaryNode(value)
+        if self.right_child:
+            return
+        self.right_child = BinaryNode(value)
 
     def is_leaf(self) -> bool:
         if self.left_child or self.right_child is None:
@@ -45,8 +47,8 @@ class BinaryNode:
         if self.right_child is not None:
             self.right_child.traverse_in_order(visit)
 
-    def __str__(self):
-        print(self.value)
+    def __str__(self) -> str:
+        return str(self.value)
 
 
 class BinaryTree:
@@ -66,5 +68,8 @@ class BinaryTree:
 
 
 root = BinaryNode(10)
-root.add_right_child(7)
 root.add_left_child(15)
+root.add_right_child(7)
+root.traverse_in_order(print)
+root.traverse_pre_order(print)
+root.traverse_post_order(print)
