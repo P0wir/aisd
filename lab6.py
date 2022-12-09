@@ -19,15 +19,6 @@ class BinaryNode:
             temp = temp.left_child
         return temp
 
-    def add_left_child(self, value: Any) -> None:
-        if self.left_child:
-            return
-        self.left_child = BinaryNode(value)
-
-    def add_right_child(self, value: Any) -> None:
-        if self.right_child:
-            return
-        self.right_child = BinaryNode(value)
 
     def show(self, g=Digraph('g')):
         g.node(str(self), str(self.value))
@@ -49,12 +40,12 @@ class BinarySearchTree:
     def __init__(self, root: 'BinaryNode') -> None:
         self.root = root
 
-    def __insert(self, node: BinaryNode, value: Any) -> BinaryNode:
+    def _insert(self, node: BinaryNode, value: Any) -> BinaryNode:
         if node:
             if value < node.value:
-                node.left_child = self.__insert(node.left_child, value)
+                node.left_child = self._insert(node.left_child, value)
             else:
-                node.right_child = self.__insert(node.right_child, value)
+                node.right_child = self._insert(node.right_child, value)
         else:
             node = BinaryNode(value)
         return node
@@ -63,26 +54,54 @@ class BinarySearchTree:
         if self.root is None:
             self.root = BinaryNode(value)
         else:
-            self.root = self.__insert(self.root, value)
+            self.root = self._insert(self.root, value)
 
     def insert_list(self, list_: List[Any]) -> None:
         for i in list_:
             self.insert(i)
 
-    def remove(self, value: Any) -> None:
+    def contains(self, value: Any) -> bool:
         if self.root is None:
-            self.root = BinaryNode(value)
-        else:
-            self.root = self.__remove(self.root, value)
+            return False
+        while self.root is not None:
+            if self.root.value == value:
+                return True
+            elif self.root.value < value:
+                self.root = self.root.right_child
+            elif self.root.value > value:
+                self.root = self.root.left_child
+        return False
+
+    def remove(self, value: Any) -> None:
+        if self.contains(value):
+            self.root = self._remove(self.root, value)
+
+    def _remove(self, node: BinaryNode, value: Any) -> BinaryNode:
+        if value == node.value:
+            if node.left_child and node.right_child:
+                node.value = node.right_child.min().value
+                node.right_child = self._remove(node.right_child, node.right_child.min().value)
+            elif node.left_child:
+                node = node.left_child
+            elif node.right_child:
+                node = node.right_child
+            else:
+                node = None
+        elif node.value < value:
+            node.right_child = self._remove(node.right_child, value)
+        elif node.value > value:
+            node.left_child = self._remove(node.left_child, value)
+        return node
 
     def show(self) -> None:
-        self.root.show().render(filename='bst', view=True)
+        self.root.show().render(filename='bst',format='png', view=True)
 
 
 root = BinaryNode(10)
 korzen = BinarySearchTree(root)
 print(korzen)
-korzen.insert_list([11,15,1,2,5,7,3,8,21,4,16,36,12])
+korzen.insert_list([11, 15, 1, 2, 5, 7, 3, 8, 21, 4, 16, 36, 12])
 korzen.show()
-
+korzen.remove(10)
 print(korzen)
+print(korzen.contains(11))
